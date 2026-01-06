@@ -20,7 +20,7 @@ async def get_patient_profile(
     db: Session = Depends(get_db)
 ):
     """Get current patient's profile"""
-    if current_user.role != "patient":
+    if str(current_user.role) != "patient":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only patients can access this endpoint"

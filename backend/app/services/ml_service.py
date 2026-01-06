@@ -153,7 +153,7 @@ class MLService:
     def predict_diabetes(
         self,
         features: Dict[str, float]
-    ) -> Dict[str, any]:
+    ) -> Dict[str, Any]:
         """
         Predict diabetes risk from clinical data
         
