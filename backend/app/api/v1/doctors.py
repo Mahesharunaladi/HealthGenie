@@ -20,7 +20,7 @@ async def get_doctor_profile(
     db: Session = Depends(get_db)
 ):
     """Get current doctor's profile"""
-    if current_user.role != "doctor":
+    if str(current_user.role) != "doctor":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only doctors can access this endpoint"
@@ -42,7 +42,7 @@ async def update_doctor_profile(
     db: Session = Depends(get_db)
 ):
     """Update current doctor's profile"""
-    if current_user.role != "doctor":
+    if str(current_user.role) != "doctor":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only doctors can access this endpoint"
