@@ -12,6 +12,17 @@ import pickle
 
 logger = logging.getLogger(__name__)
 
+# Try to import TensorFlow, but make it optional
+HAS_TENSORFLOW = False
+try:
+    import tensorflow as tf  # noqa: F401
+    from tensorflow import keras  # noqa: F401
+    from tensorflow.keras import layers  # noqa: F401
+    HAS_TENSORFLOW = True
+    logger.info("TensorFlow loaded successfully")
+except ImportError:
+    logger.warning("TensorFlow not available. Brain tumor predictions will use fallback.")
+
 
 class MLService:
     """Main ML Service for all AI models"""
@@ -33,8 +44,13 @@ class MLService:
     
     def load_brain_tumor_model(self):
         """Load brain tumor detection model"""
+        if not HAS_TENSORFLOW:
+            logger.warning("TensorFlow not available, skipping brain tumor model")
+            self.brain_tumor_model = None
+            return
+            
         try:
-            from tensorflow import keras  # type: ignore
+            from tensorflow import keras
             from app.core.config import settings
             
             model_path = settings.BRAIN_TUMOR_MODEL_PATH
@@ -69,8 +85,12 @@ class MLService:
     
     def _create_dummy_brain_tumor_model(self):
         """Create a dummy brain tumor model for development"""
-        from tensorflow import keras  # type: ignore
-        from tensorflow.keras import layers  # type: ignore
+        if not HAS_TENSORFLOW:
+            logger.warning("Cannot create dummy model without TensorFlow")
+            return None
+            
+        from tensorflow import keras
+        from tensorflow.keras import layers
         
         model = keras.Sequential([
             layers.Input(shape=(240, 240, 3)),
@@ -108,7 +128,23 @@ class MLService:
             Dictionary containing prediction results
         """
         if self.brain_tumor_model is None:
-            raise ValueError("Brain tumor model not loaded")
+            # Return dummy prediction when model not available
+            return {
+                "result": "Model Not Available",
+                "confidence_score": 0.5,
+                "tumor_detected": False,
+                "risk_level": "unknown",
+                "analysis": {
+                    "confidence_percentage": "50.00%",
+                    "model_version": "dummy",
+                    "image_quality": "good",
+                    "note": "TensorFlow not available. Using fallback prediction."
+                },
+                "recommendations": [
+                    "Upload to system with TensorFlow installed for accurate prediction",
+                    "Consult with a medical professional for proper diagnosis"
+                ]
+            }
         
         try:
             # Add batch dimension if needed
