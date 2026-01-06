@@ -34,7 +34,8 @@ async def predict_brain_tumor(
     Predict brain tumor from MRI scan
     """
     # Validate file
-    if not file.content_type.startswith('image/'):
+    content_type = file.content_type or ""
+    if not content_type.startswith('image/'):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="File must be an image"
@@ -42,7 +43,8 @@ async def predict_brain_tumor(
     
     # Save uploaded file
     file_id = str(uuid.uuid4())
-    file_ext = Path(file.filename).suffix
+    filename = file.filename or "upload.jpg"
+    file_ext = Path(filename).suffix
     file_path = settings.UPLOAD_DIR / f"{file_id}{file_ext}"
     
     try:
@@ -93,7 +95,7 @@ async def predict_brain_tumor(
         db.refresh(prediction)
         
         return BrainTumorPredictionResponse(
-            prediction_id=prediction.id,
+            prediction_id=str(prediction.id),
             result=prediction_result["result"],
             confidence_score=prediction_result["confidence_score"],
             tumor_detected=prediction_result["tumor_detected"],
@@ -155,7 +157,7 @@ async def predict_diabetes(
         db.refresh(prediction)
         
         return DiabetesPredictionResponse(
-            prediction_id=prediction.id,
+            prediction_id=str(prediction.id),
             result=prediction_result["result"],
             probability=prediction_result["probability"],
             risk_level=prediction_result["risk_level"],
@@ -180,7 +182,7 @@ async def get_predictions(
     """
     Get all predictions for the current user
     """
-    if current_user.role == "patient" and current_user.patient_profile:
+    if str(current_user.role) == "patient" and current_user.patient_profile:
         predictions = db.query(Prediction).filter(
             Prediction.patient_id == current_user.patient_profile.id
         ).offset(skip).limit(limit).all()
@@ -209,7 +211,7 @@ async def get_prediction(
         )
     
     # Check permissions
-    if current_user.role == "patient":
+    if str(current_user.role) == "patient":
         if not current_user.patient_profile or prediction.patient_id != current_user.patient_profile.id:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,

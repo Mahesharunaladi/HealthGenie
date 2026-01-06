@@ -34,7 +34,7 @@ class MLService:
     def load_brain_tumor_model(self):
         """Load brain tumor detection model"""
         try:
-            from tensorflow import keras
+            from tensorflow import keras  # type: ignore
             from app.core.config import settings
             
             model_path = settings.BRAIN_TUMOR_MODEL_PATH
@@ -69,8 +69,8 @@ class MLService:
     
     def _create_dummy_brain_tumor_model(self):
         """Create a dummy brain tumor model for development"""
-        from tensorflow import keras
-        from tensorflow.keras import layers
+        from tensorflow import keras  # type: ignore
+        from tensorflow.keras import layers  # type: ignore
         
         model = keras.Sequential([
             layers.Input(shape=(240, 240, 3)),

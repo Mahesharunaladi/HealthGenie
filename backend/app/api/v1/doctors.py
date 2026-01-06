@@ -75,7 +75,7 @@ async def review_prediction(
     db: Session = Depends(get_db)
 ):
     """Review and approve/reject a prediction"""
-    if current_user.role != "doctor":
+    if str(current_user.role) != "doctor":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only doctors can review predictions"
@@ -88,9 +88,9 @@ async def review_prediction(
             detail="Prediction not found"
         )
     
-    prediction.reviewed_by = current_user.id
-    prediction.doctor_notes = doctor_notes
-    prediction.status = "approved" if approve else "rejected"
+    prediction.reviewed_by = current_user.id  # type: ignore
+    prediction.doctor_notes = doctor_notes  # type: ignore
+    prediction.status = "approved" if approve else "rejected"  # type: ignore
     
     db.commit()
     db.refresh(prediction)
