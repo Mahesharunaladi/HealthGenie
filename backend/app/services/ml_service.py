@@ -6,7 +6,7 @@ Handles loading and inference of AI/ML models
 import os
 import logging
 import numpy as np
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple, Optional, Any
 from pathlib import Path
 import pickle
 
@@ -97,7 +97,7 @@ class MLService:
     def predict_brain_tumor(
         self,
         image: np.ndarray
-    ) -> Dict[str, any]:
+    ) -> Dict[str, Any]:
         """
         Predict brain tumor from MRI image
         
