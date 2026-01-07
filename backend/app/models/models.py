@@ -81,7 +81,7 @@ class MedicalRecord(Base):
     file_url = Column(String)
     description = Column(Text)
     uploaded_by = Column(String)
-    metadata = Column(JSON)
+    record_metadata = Column(JSON)  # Renamed from 'metadata' to avoid SQLAlchemy conflict
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
