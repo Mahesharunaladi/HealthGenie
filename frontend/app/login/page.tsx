@@ -20,16 +20,21 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
+            // Login and get tokens
             const response = await authApi.login(formData.email, formData.password);
 
-            // Store token in localStorage
+            // Store tokens in localStorage
             localStorage.setItem('token', response.access_token);
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('refresh_token', response.refresh_token);
+
+            // Fetch user information
+            const user = await authApi.getCurrentUser();
+            localStorage.setItem('user', JSON.stringify(user));
 
             // Redirect based on user role
-            if (response.user.role === 'patient') {
+            if (user.role === 'patient') {
                 router.push('/patient/dashboard');
-            } else if (response.user.role === 'doctor') {
+            } else if (user.role === 'doctor') {
                 router.push('/doctor/dashboard');
             } else {
                 router.push('/dashboard');
