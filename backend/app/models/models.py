@@ -134,7 +134,62 @@ class Appointment(Base):
     patient_id = Column(String, ForeignKey("patients.id"))
     doctor_id = Column(String, ForeignKey("doctors.id"))
     appointment_date = Column(DateTime)
-    status = Column(String, default="scheduled")  # scheduled, completed, cancelled
+    appointment_type = Column(String, default="consultation")  # consultation, video_call, follow_up
+    duration = Column(Integer, default=30)  # minutes
+    video_room_id = Column(String, nullable=True)
+    status = Column(String, default="scheduled")  # scheduled, in_progress, completed, cancelled
     notes = Column(Text)
+    prescription = Column(JSON, nullable=True)
+    payment_status = Column(String, default="pending")  # pending, paid, refunded
+    payment_amount = Column(Float, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class ChatMessage(Base):
+    """AI Chatbot conversation history"""
+    __tablename__ = "chat_messages"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("users.id"))
+    role = Column(String, nullable=False)  # user, assistant, system
+    content = Column(Text, nullable=False)
+    metadata = Column(JSON, nullable=True)  # attachments, context, etc.
+    session_id = Column(String, nullable=True)  # group conversations
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class HealthMetric(Base):
+    """Real-time health monitoring metrics"""
+    __tablename__ = "health_metrics"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    patient_id = Column(String, ForeignKey("patients.id"))
+    metric_type = Column(String, nullable=False)  # heart_rate, blood_pressure, glucose, oxygen, temperature
+    value = Column(Float, nullable=False)
+    unit = Column(String, nullable=False)  # bpm, mmHg, mg/dL, %, °F
+    systolic = Column(Float, nullable=True)  # for blood pressure
+    diastolic = Column(Float, nullable=True)  # for blood pressure
+    device_id = Column(String, nullable=True)  # wearable device identifier
+    notes = Column(Text, nullable=True)
+    is_alert = Column(Boolean, default=False)  # triggered alert
+    alert_message = Column(String, nullable=True)
+    recorded_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class Prescription(Base):
+    """Doctor prescriptions"""
+    __tablename__ = "prescriptions"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    appointment_id = Column(String, ForeignKey("appointments.id"))
+    patient_id = Column(String, ForeignKey("patients.id"))
+    doctor_id = Column(String, ForeignKey("doctors.id"))
+    medications = Column(JSON, nullable=False)  # [{name, dosage, frequency, duration}]
+    diagnosis = Column(Text, nullable=False)
+    instructions = Column(Text)
+    valid_until = Column(DateTime)
+    status = Column(String, default="active")  # active, expired, cancelled
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
