@@ -168,6 +168,36 @@ export default function PatientDashboard() {
                     </Link>
                 </div>
 
+                {/* New Features Section */}
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">🆕 New Features</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <Link href="/chatbot" className="block p-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                            <div className="text-white">
+                                <div className="text-4xl mb-3">🤖</div>
+                                <h3 className="text-xl font-bold mb-2">AI Health Assistant</h3>
+                                <p className="text-blue-100 text-sm">Chat with our medical AI for instant health information and guidance</p>
+                            </div>
+                        </Link>
+
+                        <Link href="/health-monitoring" className="block p-6 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                            <div className="text-white">
+                                <div className="text-4xl mb-3">📊</div>
+                                <h3 className="text-xl font-bold mb-2">Health Monitoring</h3>
+                                <p className="text-green-100 text-sm">Track vital signs and get real-time alerts for your health metrics</p>
+                            </div>
+                        </Link>
+
+                        <Link href="/telemedicine" className="block p-6 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                            <div className="text-white">
+                                <div className="text-4xl mb-3">📹</div>
+                                <h3 className="text-xl font-bold mb-2">Video Consultation</h3>
+                                <p className="text-pink-100 text-sm">Book virtual appointments and consult doctors from home</p>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+
                 {/* Statistics */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                     <div className="bg-white p-6 rounded-lg shadow">
