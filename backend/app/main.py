@@ -12,7 +12,7 @@ from typing import List
 
 from app.core.config import settings
 from app.core.database import engine, Base
-from app.api.v1 import auth, patients, doctors, ml_predictions, reports, chatbot, health_monitoring, telemedicine
+from app.api.v1 import auth, patients, doctors, ml_predictions, reports, chatbot, health_monitoring, telemedicine, family
 from app.services.websocket_manager import ConnectionManager
 
 # Configure logging
@@ -163,6 +163,12 @@ app.include_router(
     telemedicine.router,
     prefix="/api/v1/telemedicine",
     tags=["Telemedicine"]
+)
+
+app.include_router(
+    family.router,
+    prefix="/api/v1/family",
+    tags=["Family Health"]
 )
 
 

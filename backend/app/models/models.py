@@ -154,7 +154,7 @@ class ChatMessage(Base):
     user_id = Column(String, ForeignKey("users.id"))
     role = Column(String, nullable=False)  # user, assistant, system
     content = Column(Text, nullable=False)
-    metadata = Column(JSON, nullable=True)  # attachments, context, etc.
+    message_metadata = Column(JSON, nullable=True)  # attachments, context, etc.
     session_id = Column(String, nullable=True)  # group conversations
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
@@ -191,5 +191,87 @@ class Prescription(Base):
     instructions = Column(Text)
     valid_until = Column(DateTime)
     status = Column(String, default="active")  # active, expired, cancelled
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class FamilyMember(Base):
+    """Family members for family health management"""
+    __tablename__ = "family_members"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    primary_user_id = Column(String, ForeignKey("users.id"))  # Parent/Guardian
+    full_name = Column(String, nullable=False)
+    relationship = Column(String, nullable=False)  # parent, spouse, child, sibling, grandparent
+    date_of_birth = Column(DateTime, nullable=False)
+    gender = Column(String)
+    blood_group = Column(String)
+    phone = Column(String)
+    email = Column(String)
+    photo_url = Column(String)
+    
+    # Medical information
+    medical_history = Column(JSON)  # [{condition, diagnosed_date, status}]
+    allergies = Column(JSON)  # [allergy_name]
+    chronic_conditions = Column(JSON)  # [condition_name]
+    current_medications = Column(JSON)  # [{name, dosage, frequency}]
+    emergency_contact = Column(String)
+    insurance_info = Column(JSON)  # {provider, policy_number, group_number}
+    
+    # Genetic & Family Health
+    genetic_risk_factors = Column(JSON)  # [{condition, risk_level, notes}]
+    
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class FamilyHealthTimeline(Base):
+    """Timeline of health events for family"""
+    __tablename__ = "family_health_timeline"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    family_member_id = Column(String, ForeignKey("family_members.id"))
+    event_type = Column(String, nullable=False)  # diagnosis, surgery, vaccination, checkup, emergency
+    event_title = Column(String, nullable=False)
+    event_description = Column(Text)
+    event_date = Column(DateTime, nullable=False)
+    doctor_name = Column(String)
+    hospital = Column(String)
+    attachments = Column(JSON)  # [{file_name, file_url, file_type}]
+    notes = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class DoctorAvailability(Base):
+    """Doctor availability schedule for appointments"""
+    __tablename__ = "doctor_availability"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    doctor_id = Column(String, ForeignKey("doctors.id"))
+    day_of_week = Column(Integer, nullable=False)  # 0=Monday, 6=Sunday
+    start_time = Column(String, nullable=False)  # "09:00"
+    end_time = Column(String, nullable=False)  # "17:00"
+    is_available = Column(Boolean, default=True)
+    slot_duration = Column(Integer, default=30)  # minutes
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class Payment(Base):
+    """Payment records for appointments and services"""
+    __tablename__ = "payments"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("users.id"))
+    appointment_id = Column(String, ForeignKey("appointments.id"), nullable=True)
+    amount = Column(Float, nullable=False)
+    currency = Column(String, default="USD")
+    payment_method = Column(String)  # credit_card, debit_card, insurance, cash
+    payment_provider = Column(String)  # stripe, paypal, etc.
+    transaction_id = Column(String, unique=True)
+    status = Column(String, default="pending")  # pending, completed, failed, refunded
+    payment_date = Column(DateTime)
+    receipt_url = Column(String)
+    notes = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
