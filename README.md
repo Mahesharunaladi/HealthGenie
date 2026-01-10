@@ -1,103 +1,128 @@
-# CuraGenie - AI-Powered Healthcare Platform
+# HealthGenie - AI-Powered Healthcare Platform 🏥
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-15.4.5-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688.svg)](https://fastapi.tiangolo.com/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15.0-orange.svg)](https://www.tensorflow.org/)
+[![Python](https://img.shields.io/badge/Python-3.14-blue.svg)](https://www.python.org/)
+
+> *Empowering everyone with accessible, AI-driven healthcare solutions*
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 1. [Introduction](#introduction)
-2. [Project Overview](#project-overview)
+2. [Features](#features)
 3. [Technology Stack](#technology-stack)
-4. [Key Features](#key-features)
-5. [System Architecture](#system-architecture)
-6. [AI/ML Implementation](#aiml-implementation)
-7. [Getting Started](#getting-started)
-8. [Demo](#demo)
-9. [Impact and Future Scope](#impact-and-future-scope)
-10. [Challenges and Learnings](#challenges-and-learnings)
-11. [Contributing](#contributing)
-12. [License](#license)
+4. [System Architecture](#system-architecture)
+5. [Getting Started](#getting-started)
+6. [API Documentation](#api-documentation)
+7. [Project Structure](#project-structure)
+8. [Recent Updates](#recent-updates)
+9. [Contributing](#contributing)
+10. [License](#license)
 
 ---
 
-## Introduction
+## 🎯 Introduction
 
-### What is CuraGenie?
+### What is HealthGenie?
 
-CuraGenie is an open-source, AI-driven healthcare platform designed for diagnostics, genomic analysis, and comprehensive patient care. It combines cutting-edge artificial intelligence, machine learning, and medical expertise to provide actionable health insights that empower both healthcare providers and patients.
+HealthGenie is a comprehensive, AI-powered healthcare platform that combines cutting-edge technology with medical expertise to provide:
 
-### Why CuraGenie?
+- 🤖 **AI Medical Diagnostics** - Brain tumor detection, diabetes prediction, and more
+- 💬 **Intelligent Chatbot** - 24/7 medical assistance powered by GPT-3.5
+- 📊 **Real-time Health Monitoring** - Track vital signs with WebSocket alerts
+- 👨‍⚕️ **Telemedicine** - Video consultations with healthcare providers
+- 👨‍👩‍👧‍👦 **Family Health Records** - Manage entire family's health in one place
+- 📱 **Patient & Doctor Dashboards** - Role-based interfaces for seamless care
+
+### Why HealthGenie?
 
 **For Patients:**
-- 🏥 Personalized health reports with detailed insights
-- 🔍 Early disease detection through AI-powered diagnostics
-- 📱 Easy access to complete medical history
-- 💊 Treatment recommendations based on genomic data
+- 🏥 Access to AI-powered health insights 24/7
+- � Complete medical history in one secure platform
+- 👨‍👩‍� Track family health with genetic risk analysis
+- 💊 Real-time health monitoring with alerts
+- 🎥 Virtual doctor consultations from home
 
-**For Doctors:**
-- 🤖 AI-assisted diagnostics for faster decision-making
-- 📊 Streamlined workflows and automated reporting
-- 🔒 Secure patient data management with role-based access
-- 📈 Real-time health monitoring integration
-
-**For Researchers:**
-- 🔬 Open-source tools for medical research
-- 📉 Advanced data analysis capabilities
-- 🧬 Genomic analysis tools
-- 🤝 Collaborative research platform
-
-### Vision
-
-> *"Empowering everyone with accessible, data-driven healthcare solutions."*
+**For Healthcare Providers:**
+- 🤖 AI-assisted diagnostics for faster decisions
+- 📊 Comprehensive patient health data
+- 🔒 Secure, HIPAA-ready platform
+- 📈 Real-time patient monitoring
+- � Digital prescription management
 
 ---
 
-## Project Overview
+## ✨ Features
 
-### Problem Statement
+### 🤖 AI Medical Chatbot
+- **Powered by OpenAI GPT-3.5** for intelligent medical conversations
+- Context-aware responses based on medical knowledge
+- Conversation history tracking
+- Fallback responses for offline functionality
+- **API Endpoints:**
+  - `POST /api/v1/chatbot/chat` - Send message
+  - `GET /api/v1/chatbot/history/{session_id}` - Get conversation history
+  - `DELETE /api/v1/chatbot/history/{session_id}` - Clear history
 
-Modern healthcare faces critical challenges that impact patient outcomes and healthcare delivery:
+### 📊 Real-Time Health Monitoring
+- Track 5 vital signs: Heart Rate, Blood Pressure, Temperature, Oxygen, Glucose
+- **WebSocket integration** for real-time updates
+- Alert system with configurable thresholds
+- Statistical analysis (average, min, max, trends)
+- Interactive Chart.js visualizations
+- **API Endpoints:**
+  - `POST /api/v1/health/metrics` - Add health metric
+  - `GET /api/v1/health/metrics` - Get all metrics
+  - `GET /api/v1/health/stats` - Get statistics
+  - `WS /api/v1/health/ws/{user_id}` - WebSocket connection
 
-- ⏱️ **Delayed Diagnosis:** Manual processes lead to significant delays in diagnosis and treatment
-- 🌍 **Limited Access:** Remote areas lack access to advanced diagnostic technologies
-- 📋 **Fragmented Data:** Patient data scattered across multiple platforms and systems
-- 💰 **High Costs:** Expensive diagnostic procedures limit accessibility
-- 👨‍⚕️ **Physician Workload:** Healthcare providers overwhelmed with administrative tasks
+### 🎥 Telemedicine Video Consultation
+- WebRTC-based video calls
+- Appointment scheduling system
+- Doctor availability management
+- Payment tracking integration
+- Prescription generation
+- **API Endpoints:**
+  - `POST /api/v1/telemedicine/appointments` - Book appointment
+  - `GET /api/v1/telemedicine/appointments` - List appointments
+  - `POST /api/v1/telemedicine/appointments/{id}/start` - Start video session
+  - `POST /api/v1/telemedicine/prescriptions` - Create prescription
 
-### Solution
+### 👨‍👩‍👧‍👦 Family Health Records
+- Manage multiple family members' health data
+- Medical history tracking for each member
+- **Genetic risk factor aggregation**
+- Family health timeline
+- Age-based health insights
+- Common conditions and allergies tracking
+- **API Endpoints:**
+  - `POST /api/v1/family/members` - Add family member
+  - `GET /api/v1/family/members` - List all members
+  - `GET /api/v1/family/summary` - Family health summary
+  - `POST /api/v1/family/timeline` - Add health event
 
-CuraGenie addresses these challenges through a comprehensive AI-driven approach:
+### 🧠 AI/ML Diagnostics
+- **Brain Tumor Detection** - CNN-based MRI analysis
+- **Diabetes Prediction** - Risk assessment from clinical data
+- Confidence scoring for predictions
+- Doctor review workflow
+- Historical prediction tracking
 
-1. **Automating Diagnostics**
-   - AI models analyze medical images and clinical data for faster, accurate results
-   - Reduces diagnosis time from days to minutes
-   - 95%+ accuracy in anomaly detection
-
-2. **Centralizing Data**
-   - Secure, unified platform for all patient records
-   - HIPAA/GDPR compliant data management
-   - End-to-end encryption (AES-256)
-
-3. **Enabling Remote Care**
-   - Telemedicine integration for global accessibility
-   - Real-time health monitoring through wearable devices
-   - Cloud-based platform accessible anywhere
-
-### Target Users
-
-- 👨‍⚕️ **Healthcare Providers:** Doctors, nurses, and medical professionals
-- 🏥 **Patients:** Individuals seeking personalized healthcare
-- 🔬 **Medical Researchers:** Scientists and academics in healthcare research
-- 🏢 **Healthcare Institutions:** Hospitals, clinics, and medical centers
+### 🔐 Security & Authentication
+- JWT-based authentication
+- Role-based access control (Patient/Doctor)
+- Bcrypt password hashing
+- AES-256 data encryption ready
+- CORS protection
+- Secure session management
 
 ---
 
-## Technology Stack
+## 🛠️ Technology Stack
 
 ### Frontend
 
@@ -151,28 +176,483 @@ CuraGenie addresses these challenges through a comprehensive AI-driven approach:
 
 ## Key Features
 
-### 1. AI-Powered Diagnostics 🤖
+## 🛠️ Technology Stack
 
-**How it works:**
-1. 📤 Upload medical images (X-rays, MRIs, CT scans) or genomic data
-2. 🧠 AI models analyze the data and generate comprehensive reports
-3. 👨‍⚕️ Doctors review, validate, and add clinical notes
-4. 📊 Results shared with patients securely
+### Frontend
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Next.js** | 15.4.5 | React framework with SSR |
+| **TypeScript** | 5.0+ | Type-safe JavaScript |
+| **TailwindCSS** | Latest | Utility-first CSS framework |
+| **Chart.js** | 4.4+ | Health data visualizations |
+| **Socket.IO Client** | 4.7+ | Real-time WebSocket communication |
+| **Simple-Peer** | 9.11+ | WebRTC video calls |
 
-**Use Cases:**
-- Detects brain tumors in MRI scans with 95%+ accuracy
-- Identifies diabetic retinopathy from retinal images
-- Predicts diabetes risk based on clinical markers
-- Analyzes chest X-rays for pneumonia and COVID-19
-- Reduces diagnosis time from days to minutes
+### Backend
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **FastAPI** | 0.104+ | High-performance Python API |
+| **Python** | 3.14 | Backend programming language |
+| **SQLAlchemy** | 2.0+ | SQL toolkit and ORM |
+| **SQLite** | 3+ | Development database |
+| **PostgreSQL** | 14+ | Production database (ready) |
+| **Python-SocketIO** | 5.10+ | WebSocket server |
+| **Uvicorn** | Latest | ASGI server |
 
-### 2. Genomic Analysis 🧬
+### AI/ML Stack
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **OpenAI GPT-3.5** | Latest | Medical chatbot intelligence |
+| **TensorFlow** | 2.15+ | Deep learning framework |
+| **Keras** | Latest | Neural network API |
+| **scikit-learn** | 1.3+ | Machine learning models |
+| **NumPy** | 1.24+ | Numerical computing |
+| **Pandas** | 2.0+ | Data analysis |
 
-**Tools Used:** Biopython, scikit-learn, custom ML pipelines
+### Security & Authentication
+- � **JWT Tokens** - Secure API authentication
+- 🔒 **Bcrypt** - Password hashing
+- 🛡️ **CORS** - Cross-origin protection
+- 📜 **Role-Based Access Control** - Patient/Doctor permissions
+- 🔑 **OAuth 2.0** - Ready for third-party auth
 
-**Capabilities:**
-- 🔬 DNA sequence analysis and alignment
-- 🧪 Identification of genetic markers for diseases
+### Real-Time Features
+- 🔌 **WebSocket** - Live health monitoring alerts
+- 🎥 **WebRTC** - Peer-to-peer video calls
+- 📡 **Server-Sent Events** - Ready for live updates
+
+---
+
+## 🏗️ System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Client Layer (Next.js)                   │
+├─────────────────────────────────────────────────────────────┤
+│  Patient Dashboard  │  Doctor Dashboard  │  Family Health   │
+│  Chatbot Interface  │  Health Monitoring │  Telemedicine    │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           │ REST API / WebSocket
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                   API Gateway (FastAPI)                      │
+├─────────────────────────────────────────────────────────────┤
+│  Auth  │  Chatbot  │  Health  │  Telemedicine  │  Family   │
+│  API   │  API      │  API     │  API           │  API      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+         ┌─────────────────┼─────────────────┐
+         │                 │                 │
+┌────────▼────────┐ ┌─────▼─────┐ ┌────────▼────────┐
+│  AI/ML Models   │ │ Database  │ │  External APIs  │
+│  - GPT-3.5      │ │ SQLite/   │ │  - OpenAI       │
+│  - TensorFlow   │ │ PostgreSQL│ │  - Payment      │
+│  - Scikit-learn │ └───────────┘ │  - SMS/Email    │
+└─────────────────┘               └─────────────────┘
+```
+
+### Key Components
+
+1. **Frontend (Next.js)**
+   - Server-side rendering for performance
+   - Client-side routing for smooth navigation
+   - Real-time updates via WebSocket
+   - Responsive design for all devices
+
+2. **Backend (FastAPI)**
+   - RESTful API architecture
+   - Async request handling
+   - WebSocket support for real-time features
+   - OpenAPI documentation (Swagger)
+
+3. **Database (SQLite/PostgreSQL)**
+   - 13+ tables for comprehensive data management
+   - Relations: Users, Patients, Doctors, Appointments, etc.
+   - Soft deletes for data integrity
+   - Indexed queries for performance
+
+4. **AI/ML Layer**
+   - Pre-trained models for diagnostics
+   - OpenAI integration for chatbot
+   - Fallback responses for offline mode
+   - Model versioning and updates
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** 18+ and npm/yarn
+- **Python** 3.14+
+- **Git**
+- **OpenAI API Key** (optional, for chatbot)
+
+### Installation
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Mahesharunaladi/HealthGenie.git
+cd HealthGenie
+```
+
+#### 2. Backend Setup
+
+```bash
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create .env file
+cat > .env << EOF
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=sqlite:///./curagenie.db
+OPENAI_API_KEY=your-openai-api-key-here  # Optional
+ALLOWED_ORIGINS=http://localhost:3001
+EOF
+
+# Run database migrations
+python -m alembic upgrade head  # If using Alembic
+
+# Start backend server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Backend will be available at: `http://localhost:8000`
+API Documentation: `http://localhost:8000/api/docs`
+
+#### 3. Frontend Setup
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Create .env.local file
+cat > .env.local << EOF
+NEXT_PUBLIC_API_URL=http://localhost:8000
+EOF
+
+# Start development server
+npm run dev
+```
+
+Frontend will be available at: `http://localhost:3001`
+
+### Quick Start Script
+
+```bash
+# From project root
+chmod +x start-backend.sh
+./start-backend.sh  # Starts backend
+
+cd frontend
+npm run dev  # Starts frontend in another terminal
+```
+
+---
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+
+```http
+POST   /api/v1/auth/register       # Register new user
+POST   /api/v1/auth/login          # Login user
+GET    /api/v1/auth/me             # Get current user
+```
+
+### Chatbot Endpoints
+
+```http
+POST   /api/v1/chatbot/chat        # Send message to AI
+GET    /api/v1/chatbot/history     # Get conversation history
+DELETE /api/v1/chatbot/history/:id # Clear chat history
+```
+
+### Health Monitoring Endpoints
+
+```http
+POST   /api/v1/health/metrics      # Add health metric
+GET    /api/v1/health/metrics      # Get all metrics
+GET    /api/v1/health/stats        # Get health statistics
+WS     /api/v1/health/ws/:userId   # WebSocket connection
+```
+
+### Telemedicine Endpoints
+
+```http
+POST   /api/v1/telemedicine/appointments     # Book appointment
+GET    /api/v1/telemedicine/appointments     # List appointments
+PATCH  /api/v1/telemedicine/appointments/:id # Update appointment
+POST   /api/v1/telemedicine/appointments/:id/start # Start video
+POST   /api/v1/telemedicine/prescriptions    # Create prescription
+```
+
+### Family Health Endpoints
+
+```http
+POST   /api/v1/family/members      # Add family member
+GET    /api/v1/family/members      # List all members
+GET    /api/v1/family/members/:id  # Get member details
+PATCH  /api/v1/family/members/:id  # Update member
+DELETE /api/v1/family/members/:id  # Remove member
+GET    /api/v1/family/summary      # Family health summary
+POST   /api/v1/family/timeline     # Add health event
+GET    /api/v1/family/timeline     # Get family timeline
+```
+
+### ML Prediction Endpoints
+
+```http
+POST   /api/v1/ml/predict/brain-tumor    # Brain tumor detection
+POST   /api/v1/ml/predict/diabetes       # Diabetes risk prediction
+GET    /api/v1/ml/predictions            # Get all predictions
+```
+
+**Full API Documentation:** Visit `http://localhost:8000/api/docs` when backend is running
+
+---
+
+## 📁 Project Structure
+
+```
+HealthGenie/
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── v1/
+│   │   │       ├── auth.py              # Authentication
+│   │   │       ├── chatbot.py           # AI Chatbot
+│   │   │       ├── health_monitoring.py # Health tracking
+│   │   │       ├── telemedicine.py      # Video consultations
+│   │   │       ├── family.py            # Family health
+│   │   │       ├── ml_predictions.py    # AI diagnostics
+│   │   │       ├── patients.py          # Patient management
+│   │   │       └── doctors.py           # Doctor management
+│   │   ├── core/
+│   │   │   ├── config.py                # Configuration
+│   │   │   └── database.py              # Database setup
+│   │   ├── models/
+│   │   │   └── models.py                # SQLAlchemy models
+│   │   ├── schemas/
+│   │   │   └── schemas.py               # Pydantic schemas
+│   │   ├── services/
+│   │   │   ├── ml_service.py            # ML model loading
+│   │   │   └── websocket_manager.py     # WebSocket handling
+│   │   └── main.py                      # FastAPI app
+│   ├── models/                          # Trained ML models
+│   ├── requirements.txt                 # Python dependencies
+│   └── curagenie.db                     # SQLite database
+├── frontend/
+│   ├── app/
+│   │   ├── chatbot/
+│   │   │   └── page.tsx                 # Chatbot interface
+│   │   ├── health-monitoring/
+│   │   │   └── page.tsx                 # Health dashboard
+│   │   ├── telemedicine/
+│   │   │   ├── page.tsx                 # Appointment booking
+│   │   │   └── room/[roomId]/page.tsx   # Video room
+│   │   ├── family/
+│   │   │   ├── page.tsx                 # Family dashboard
+│   │   │   └── add/page.tsx             # Add family member
+│   │   ├── patient/
+│   │   │   └── dashboard/page.tsx       # Patient dashboard
+│   │   ├── doctor/
+│   │   │   └── dashboard/page.tsx       # Doctor dashboard
+│   │   └── layout.tsx                   # Root layout
+│   ├── components/                      # Reusable components
+│   ├── services/
+│   │   └── api.ts                       # API service layer
+│   ├── types/
+│   │   └── auth.ts                      # TypeScript types
+│   ├── package.json                     # npm dependencies
+│   └── tailwind.config.ts               # Tailwind config
+├── .vscode/
+│   └── settings.json                    # VS Code settings
+├── README.md                            # This file
+├── BUG_FIXES_SUMMARY.md                 # Bug fix documentation
+├── NEW_FEATURES_COMPLETE.md             # Feature documentation
+└── start-backend.sh                     # Backend start script
+```
+
+---
+
+## 🆕 Recent Updates (January 2026)
+
+### New Features Added
+
+#### 1. AI Medical Chatbot ✅
+- OpenAI GPT-3.5 integration
+- Context-aware medical responses
+- Conversation history tracking
+- Fallback responses for offline mode
+- Quick question suggestions
+
+#### 2. Real-Time Health Monitoring ✅
+- WebSocket-based live updates
+- 5 vital sign types tracking
+- Alert system with thresholds
+- Statistical analysis and trends
+- Chart.js visualizations
+
+#### 3. Telemedicine Platform ✅
+- Video consultation rooms (WebRTC)
+- Appointment scheduling
+- Doctor availability system
+- Payment tracking infrastructure
+- Digital prescription generation
+
+#### 4. Family Health Records ✅
+- Multi-member health tracking
+- Genetic risk factor analysis
+- Family health timeline
+- Age-based insights
+- Common conditions tracking
+
+### Bug Fixes ✅
+- Fixed 221 type checking errors
+- Resolved SQLAlchemy Column type issues
+- Fixed TypeScript API response types
+- Improved Python type annotations
+- Added VS Code diagnostic overrides
+
+### Technical Improvements
+- Added helper functions for ORM conversions
+- Improved error handling across APIs
+- Enhanced type safety
+- Updated documentation
+- Optimized database queries
+
+---
+
+## 🎯 Roadmap
+
+### Phase 1: Core Platform ✅ (Completed)
+- [x] User authentication and authorization
+- [x] Patient and doctor dashboards
+- [x] Basic health records management
+- [x] AI/ML model integration
+- [x] API documentation
+
+### Phase 2: Advanced Features ✅ (Completed - January 2026)
+- [x] AI Medical Chatbot
+- [x] Real-time health monitoring
+- [x] Telemedicine video consultations
+- [x] Family health records
+- [x] WebSocket integration
+
+### Phase 3: Enhancements 🚧 (In Progress)
+- [ ] Payment integration (Stripe)
+- [ ] Doctor profile pages
+- [ ] Enhanced video features (recording, file sharing)
+- [ ] HIPAA compliance documentation
+- [ ] Mobile app (React Native)
+
+### Phase 4: Scale & Optimize 📅 (Planned)
+- [ ] PostgreSQL migration
+- [ ] Redis caching layer
+- [ ] Microservices architecture
+- [ ] Load balancing
+- [ ] Advanced analytics dashboard
+- [ ] Multi-language support
+- [ ] Blockchain for medical records
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+### How to Contribute
+
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Make your changes**
+4. **Commit your changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+5. **Push to the branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+6. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow PEP 8 for Python code
+- Use TypeScript for all new frontend code
+- Write meaningful commit messages
+- Add tests for new features
+- Update documentation
+- Ensure all tests pass before submitting PR
+
+### Areas Where We Need Help
+
+- 🎨 UI/UX improvements
+- 🧪 Writing unit and integration tests
+- 📚 Documentation improvements
+- 🐛 Bug fixes and optimizations
+- 🌍 Internationalization (i18n)
+- ♿ Accessibility improvements
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Team
+
+- **Mahesh Arunaladi** - Project Lead & Full Stack Developer
+  - GitHub: [@Mahesharunaladi](https://github.com/Mahesharunaladi)
+
+---
+
+## 🙏 Acknowledgments
+
+- OpenAI for GPT-3.5 API
+- TensorFlow and Keras communities
+- FastAPI framework
+- Next.js team
+- All open-source contributors
+
+---
+
+## 📞 Contact & Support
+
+- 📧 Email: support@healthgenie.com
+- 🐛 Issues: [GitHub Issues](https://github.com/Mahesharunaladi/HealthGenie/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/Mahesharunaladi/HealthGenie/discussions)
+
+---
+
+## ⭐ Star History
+
+If you find this project useful, please consider giving it a star! ⭐
+
+---
+
+**Made with ❤️ for better healthcare accessibility**
 - 💊 Personalized treatment recommendations
 - 📈 Hereditary disease risk assessment
 - 🎯 Pharmacogenomics for drug response prediction
