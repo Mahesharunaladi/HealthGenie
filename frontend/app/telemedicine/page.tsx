@@ -336,7 +336,7 @@ export default function Telemedicine() {
                 {/* Appointments List */}
                 <div className="bg-white rounded-lg shadow-sm p-6">
                     <h2 className="text-xl font-semibold mb-4">Your Appointments</h2>
-                    
+
                     {appointments.length === 0 ? (
                         <div className="text-center py-12">
                             <p className="text-gray-500 mb-4">No appointments scheduled yet</p>

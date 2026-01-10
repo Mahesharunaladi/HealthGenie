@@ -102,6 +102,28 @@ def calculate_age(birth_date: datetime) -> int:
     return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
 
 
+def member_to_response(member: FamilyMember) -> FamilyMemberResponse:
+    """Convert ORM FamilyMember to Pydantic response model"""
+    return FamilyMemberResponse(
+        id=str(member.id),  # type: ignore
+        full_name=str(member.full_name),  # type: ignore
+        relationship=str(member.relationship),  # type: ignore
+        date_of_birth=member.date_of_birth,  # type: ignore
+        gender=str(member.gender) if member.gender else None,  # type: ignore
+        blood_group=str(member.blood_group) if member.blood_group else None,  # type: ignore
+        phone=str(member.phone) if member.phone else None,  # type: ignore
+        email=str(member.email) if member.email else None,  # type: ignore
+        medical_history=member.medical_history or [],  # type: ignore
+        allergies=member.allergies or [],  # type: ignore
+        chronic_conditions=member.chronic_conditions or [],  # type: ignore
+        current_medications=member.current_medications or [],  # type: ignore
+        emergency_contact=str(member.emergency_contact) if member.emergency_contact else None,  # type: ignore
+        genetic_risk_factors=member.genetic_risk_factors or [],  # type: ignore
+        age=calculate_age(member.date_of_birth),  # type: ignore
+        created_at=member.created_at  # type: ignore
+    )
+
+
 @router.post("/members", response_model=FamilyMemberResponse)
 async def add_family_member(
     member: FamilyMemberCreate,
@@ -132,24 +154,7 @@ async def add_family_member(
     db.commit()
     db.refresh(new_member)
     
-    return FamilyMemberResponse(
-        id=new_member.id,
-        full_name=new_member.full_name,
-        relationship=new_member.relationship,
-        date_of_birth=new_member.date_of_birth,
-        gender=new_member.gender,
-        blood_group=new_member.blood_group,
-        phone=new_member.phone,
-        email=new_member.email,
-        medical_history=new_member.medical_history,
-        allergies=new_member.allergies,
-        chronic_conditions=new_member.chronic_conditions,
-        current_medications=new_member.current_medications,
-        emergency_contact=new_member.emergency_contact,
-        genetic_risk_factors=new_member.genetic_risk_factors,
-        age=calculate_age(new_member.date_of_birth),
-        created_at=new_member.created_at
-    )
+    return member_to_response(new_member)
 
 
 @router.get("/members", response_model=List[FamilyMemberResponse])

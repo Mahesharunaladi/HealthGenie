@@ -80,7 +80,7 @@ export default function VideoRoom() {
                 // Replace video track with screen share
                 const videoTrack = screenStream.getVideoTracks()[0];
                 const sender = localStream?.getVideoTracks()[0];
-                
+
                 if (localVideoRef.current) {
                     localVideoRef.current.srcObject = screenStream;
                 }
@@ -178,11 +178,10 @@ export default function VideoRoom() {
                     <div className="flex items-center justify-center space-x-4">
                         <button
                             onClick={toggleMic}
-                            className={`p-4 rounded-full transition ${
-                                micOn 
-                                    ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                            className={`p-4 rounded-full transition ${micOn
+                                    ? 'bg-gray-700 hover:bg-gray-600 text-white'
                                     : 'bg-red-600 hover:bg-red-700 text-white'
-                            }`}
+                                }`}
                             title={micOn ? 'Mute Microphone' : 'Unmute Microphone'}
                         >
                             <span className="text-2xl">{micOn ? '🎤' : '🔇'}</span>
@@ -190,11 +189,10 @@ export default function VideoRoom() {
 
                         <button
                             onClick={toggleCamera}
-                            className={`p-4 rounded-full transition ${
-                                cameraOn 
-                                    ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                            className={`p-4 rounded-full transition ${cameraOn
+                                    ? 'bg-gray-700 hover:bg-gray-600 text-white'
                                     : 'bg-red-600 hover:bg-red-700 text-white'
-                            }`}
+                                }`}
                             title={cameraOn ? 'Turn Off Camera' : 'Turn On Camera'}
                         >
                             <span className="text-2xl">{cameraOn ? '📹' : '📷'}</span>
@@ -202,11 +200,10 @@ export default function VideoRoom() {
 
                         <button
                             onClick={toggleScreenShare}
-                            className={`p-4 rounded-full transition ${
-                                screenSharing 
-                                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                            className={`p-4 rounded-full transition ${screenSharing
+                                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
                                     : 'bg-gray-700 hover:bg-gray-600 text-white'
-                            }`}
+                                }`}
                             title={screenSharing ? 'Stop Sharing' : 'Share Screen'}
                         >
                             <span className="text-2xl">🖥️</span>

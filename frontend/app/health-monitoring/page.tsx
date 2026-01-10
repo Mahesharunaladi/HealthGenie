@@ -141,7 +141,7 @@ export default function HealthMonitoring() {
                 setNewMetric({ metric_type: 'heart_rate', value: '', systolic: '', diastolic: '' });
                 fetchMetrics();
                 fetchStats();
-                
+
                 const result = await response.json();
                 if (result.is_alert) {
                     alert(`⚠️ Alert: ${result.alert_message}`);
@@ -182,7 +182,7 @@ export default function HealthMonitoring() {
             .slice(-20); // Last 20 readings
 
         return {
-            labels: filteredMetrics.map(m => 
+            labels: filteredMetrics.map(m =>
                 new Date(m.recorded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
             ),
             datasets: [
@@ -371,11 +371,10 @@ export default function HealthMonitoring() {
                                 <button
                                     key={type}
                                     onClick={() => setSelectedMetric(type)}
-                                    className={`px-4 py-2 rounded-lg transition ${
-                                        selectedMetric === type
+                                    className={`px-4 py-2 rounded-lg transition ${selectedMetric === type
                                             ? 'bg-blue-600 text-white'
                                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                    }`}
+                                        }`}
                                 >
                                     {getMetricLabel(type)}
                                 </button>
@@ -428,7 +427,7 @@ export default function HealthMonitoring() {
                                             {getMetricLabel(metric.metric_type)}
                                         </td>
                                         <td className="px-4 py-3 text-sm font-medium">
-                                            {metric.metric_type === 'blood_pressure' 
+                                            {metric.metric_type === 'blood_pressure'
                                                 ? `${metric.systolic}/${metric.diastolic} ${metric.unit}`
                                                 : `${metric.value} ${metric.unit}`
                                             }
