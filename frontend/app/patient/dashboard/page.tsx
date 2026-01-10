@@ -56,8 +56,8 @@ export default function PatientDashboard() {
                 patientApi.getProfile(),
                 mlApi.getPredictions()
             ]);
-            setProfile(profileData);
-            setPredictions(predictionsData);
+            setProfile(profileData as Profile);
+            setPredictions(predictionsData as Prediction[]);
         } catch (error) {
             console.error('Error loading dashboard:', error);
         } finally {

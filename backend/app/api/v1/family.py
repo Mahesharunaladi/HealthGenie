@@ -170,27 +170,7 @@ async def get_family_members(
         FamilyMember.is_active == True
     ).all()
     
-    return [
-        FamilyMemberResponse(
-            id=m.id,
-            full_name=m.full_name,
-            relationship=m.relationship,
-            date_of_birth=m.date_of_birth,
-            gender=m.gender,
-            blood_group=m.blood_group,
-            phone=m.phone,
-            email=m.email,
-            medical_history=m.medical_history or [],
-            allergies=m.allergies or [],
-            chronic_conditions=m.chronic_conditions or [],
-            current_medications=m.current_medications or [],
-            emergency_contact=m.emergency_contact,
-            genetic_risk_factors=m.genetic_risk_factors or [],
-            age=calculate_age(m.date_of_birth),
-            created_at=m.created_at
-        )
-        for m in members
-    ]
+    return [member_to_response(m) for m in members]
 
 
 @router.get("/members/{member_id}", response_model=FamilyMemberResponse)
@@ -213,24 +193,7 @@ async def get_family_member(
             detail="Family member not found"
         )
     
-    return FamilyMemberResponse(
-        id=member.id,
-        full_name=member.full_name,
-        relationship=member.relationship,
-        date_of_birth=member.date_of_birth,
-        gender=member.gender,
-        blood_group=member.blood_group,
-        phone=member.phone,
-        email=member.email,
-        medical_history=member.medical_history or [],
-        allergies=member.allergies or [],
-        chronic_conditions=member.chronic_conditions or [],
-        current_medications=member.current_medications or [],
-        emergency_contact=member.emergency_contact,
-        genetic_risk_factors=member.genetic_risk_factors or [],
-        age=calculate_age(member.date_of_birth),
-        created_at=member.created_at
-    )
+    return member_to_response(member)
 
 
 @router.patch("/members/{member_id}", response_model=FamilyMemberResponse)

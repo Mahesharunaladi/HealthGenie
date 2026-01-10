@@ -291,7 +291,7 @@ async def get_health_stats(
         
         stats_list.append(HealthStats(
             metric_type=metric_type,
-            average=round(average, 2),
+            average=round(float(average), 2),
             min=min_val,
             max=max_val,
             latest=latest,
