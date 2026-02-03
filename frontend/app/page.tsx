@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Activity, Brain, Heart, Shield, TrendingUp, Users } from 'lucide-react'
+import Doctor3D from '@/components/Doctor3D'
 
 export default function Home() {
   return (
@@ -24,25 +25,42 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl font-bold text-gray-900 mb-6">
-          AI-Powered Healthcare Platform
-        </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Empowering everyone with accessible, data-driven healthcare solutions through
-          advanced AI diagnostics and personalized patient care.
-        </p>
-        <div className="flex justify-center space-x-4">
-          <Link href="/register">
-            <Button size="lg" className="px-8">
-              Start Free Trial
-            </Button>
-          </Link>
-          <Link href="/demo">
-            <Button size="lg" variant="outline" className="px-8">
-              View Demo
-            </Button>
-          </Link>
+      <section className="container mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* Left side - Text */}
+          <div className="text-center md:text-left">
+            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+              AI-Powered Healthcare Platform
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Empowering everyone with accessible, data-driven healthcare solutions through
+              advanced AI diagnostics and personalized patient care.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+              <Link href="/register">
+                <Button size="lg" className="px-8 w-full sm:w-auto">
+                  Start Free Trial
+                </Button>
+              </Link>
+              <Link href="/demo">
+                <Button size="lg" variant="outline" className="px-8 w-full sm:w-auto">
+                  View Demo
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right side - 3D Doctor */}
+          <div className="flex justify-center items-center">
+            <div className="w-full max-w-md h-[400px] bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl shadow-2xl flex items-center justify-center relative overflow-hidden">
+              {/* Animated background circles */}
+              <div className="absolute w-64 h-64 bg-blue-200 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+              <div className="absolute w-48 h-48 bg-purple-200 rounded-full opacity-20 blur-2xl animate-pulse delay-1000"></div>
+
+              {/* 3D Doctor Component */}
+              <Doctor3D />
+            </div>
+          </div>
         </div>
       </section>
 
