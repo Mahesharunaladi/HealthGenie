@@ -66,11 +66,11 @@ export default function Home() {
             {/* Left side - Text Content */}
             <div className="text-white">
               <h1 className="text-6xl font-bold mb-6 leading-tight">
-                Your Healthy Is<br />
+                Your Health Is<br />
                 <span className="text-white/90">Our Priority.</span>
               </h1>
               <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-lg">
-                Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Quis Ipsum Suspendisse Ultrices Gravida.
+                Experience revolutionary AI-powered healthcare with HealthGenie. We combine advanced machine learning, real-time health monitoring, and expert medical care to provide personalized treatment plans that put your wellbeing first.
               </p>
               <Link href="/register">
                 <Button size="lg" className="bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white shadow-2xl px-8 py-6 text-lg">
@@ -166,18 +166,18 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mb-16">
             <FeatureCard
               icon={<Pill className="h-12 w-12 text-pink-500" />}
-              title="Lorem Ipsum Dolor"
-              description="Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit"
+              title="AI-Powered Diagnostics"
+              description="Advanced machine learning algorithms analyze your symptoms and medical history for accurate diagnosis"
             />
             <FeatureCard
               icon={<Clipboard className="h-12 w-12 text-pink-500" />}
-              title="Lorem Ipsum Dolor"
-              description="Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit"
+              title="Smart Health Records"
+              description="Secure digital health records accessible anytime, anywhere with complete medical history tracking"
             />
             <FeatureCard
               icon={<Stethoscope className="h-12 w-12 text-pink-500" />}
-              title="Lorem Ipsum Dolor"
-              description="Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit"
+              title="Expert Consultation"
+              description="Connect with qualified healthcare professionals for virtual consultations and personalized care"
             />
           </div>
         </div>
