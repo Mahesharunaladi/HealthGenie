@@ -9,7 +9,7 @@ from typing import List
 from app.core.database import get_db
 from app.api.v1.auth import get_current_user
 from app.models.models import User, Doctor, Prediction
-from app.schemas.schemas import DoctorResponse, DoctorUpdate, PredictionResponse
+from app.schemas.schemas import DoctorResponse, DoctorUpdate, PredictionResponse, PredictionReviewRequest, PredictionReviewResponse
 
 router = APIRouter()
 
@@ -66,11 +66,10 @@ async def update_doctor_profile(
     return doctor
 
 
-@router.post("/review-prediction/{prediction_id}")
+@router.post("/review-prediction/{prediction_id}", response_model=PredictionReviewResponse)
 async def review_prediction(
     prediction_id: str,
-    doctor_notes: str,
-    approve: bool,
+    review_data: PredictionReviewRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -89,8 +88,8 @@ async def review_prediction(
         )
     
     prediction.reviewed_by = current_user.id  # type: ignore
-    prediction.doctor_notes = doctor_notes  # type: ignore
-    prediction.status = "approved" if approve else "rejected"  # type: ignore
+    prediction.doctor_notes = review_data.doctor_notes  # type: ignore
+    prediction.status = "approved" if review_data.approve else "rejected"  # type: ignore
     
     db.commit()
     db.refresh(prediction)

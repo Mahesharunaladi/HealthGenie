@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'CuraGenie - AI-Powered Healthcare Platform',
   description: 'Open-source AI-driven healthcare platform for diagnostics, genomic analysis, and patient care',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

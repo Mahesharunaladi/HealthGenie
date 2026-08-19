@@ -234,3 +234,14 @@ class ReportResponse(BaseModel):
     report_id: str
     report_url: str
     generated_at: datetime
+
+
+# Doctor Review Schemas
+class PredictionReviewRequest(BaseModel):
+    doctor_notes: str
+    approve: bool
+
+
+class PredictionReviewResponse(BaseModel):
+    message: str
+    prediction_id: str
