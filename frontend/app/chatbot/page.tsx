@@ -235,7 +235,7 @@ How can I assist you today?`,
                         </button>
                     </div>
                     <div className="mt-3 text-xs text-gray-500 text-center">
-                        ⚠️ This AI assistant provides general information only. Always consult healthcare professionals for medical advice.
+                        This AI assistant provides general information only. Always consult healthcare professionals for medical advice.
                     </div>
                 </div>
             </div>
