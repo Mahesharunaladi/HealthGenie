@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Camera, Mic, MicOff } from 'lucide-react';
 
 interface ClinicOption {
     id: string;
@@ -509,7 +510,7 @@ How can I help you today?`,
                             className="px-3 py-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-100"
                             title="Upload rash photo"
                         >
-                            📷
+                            <Camera className="h-5 w-5" aria-hidden="true" />
                         </button>
                         <button
                             type="button"
@@ -517,7 +518,7 @@ How can I help you today?`,
                             className={`px-3 py-3 rounded-xl border ${listening ? 'bg-red-600 text-white animate-pulse' : 'bg-indigo-50 text-indigo-800 border-indigo-100'}`}
                             title="Speak to the assistant"
                         >
-                            {listening ? '⏹' : '🎤'}
+                            {listening ? <MicOff className="h-5 w-5" aria-hidden="true" /> : <Mic className="h-5 w-5" aria-hidden="true" />}
                         </button>
                         <textarea
                             value={input}

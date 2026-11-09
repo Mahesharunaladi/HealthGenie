@@ -90,7 +90,7 @@ COLD_COUGH_STEPS: List[Dict[str, Any]] = [
             {"id": "asthma", "label": "Asthma / COPD"},
             {"id": "heart", "label": "Heart disease"},
             {"id": "diabetes", "label": "Diabetes"},
-            {"id": "immune", "label": "Low immunity / cancer treatment"},
+            {"id": "immune", "label": "Weakened immune system"},
             {"id": "pregnant", "label": "Pregnancy"},
             {"id": "none", "label": "None of these"},
         ],
