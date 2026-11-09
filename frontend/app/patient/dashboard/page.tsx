@@ -174,9 +174,9 @@ export default function PatientDashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <Link href="/chatbot" className="block p-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
                             <div className="text-white">
-                                <div className="text-4xl mb-3">🤖</div>
-                                <h3 className="text-xl font-bold mb-2">AI Health Assistant</h3>
-                                <p className="text-blue-100 text-sm">Chat with our medical AI for instant health information and guidance</p>
+                                <div className="text-4xl mb-3">🗣️</div>
+                                <h3 className="text-xl font-bold mb-2">Voice Clinic</h3>
+                                <p className="text-blue-100 text-sm">Talk to the AI, scan rash photos, and get guided cold & cough home care</p>
                             </div>
                         </Link>
 

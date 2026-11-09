@@ -122,6 +122,17 @@ export const doctorApi = {
         apiClient.post(`/api/v1/doctors/review-prediction/${id}`, { doctor_notes: notes, approve }),
 }
 
+// Chatbot clinic API
+export const chatbotApi = {
+    chat: (message: string, sessionId: string) =>
+        apiClient.post('/api/v1/chatbot/chat', { message, session_id: sessionId }),
+    analyzeRash: (file: File, sessionId: string) =>
+        apiClient.uploadFile('/api/v1/chatbot/analyze-rash', file, { session_id: sessionId }),
+    symptomCheck: (sessionId: string, selected: string[]) =>
+        apiClient.post('/api/v1/chatbot/symptom-check', { session_id: sessionId, selected }),
+    firstAid: () => apiClient.get('/api/v1/chatbot/first-aid'),
+}
+
 // Reports API
 export const reportsApi = {
     generateReport: (predictionId: string) =>
